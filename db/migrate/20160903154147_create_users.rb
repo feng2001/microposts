@@ -4,10 +4,13 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :password_digest
+      t.string :country
+      t.text :prof
+      
 
       t.timestamps null: false
-      
       t.index :email, unique: true
+
     end
   end
 end
