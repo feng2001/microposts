@@ -1,4 +1,9 @@
-<h1>
-    <%= gravatar_for @user %>
-    <%= @user.name %>
-</h1>
+<div class="container bg-info">
+	<h1><%= gravatar_for @user %><%= @user.name %></h1>
+	<h1>
+    <div class="container-fluid">
+		<div class="col-xs-12">メールアドレス：<%= @user.email %></div>
+		<div class="col-xs-12">自己紹介：<%= @user.prof %></div>
+	</div>
+	</h1>
+</div>
