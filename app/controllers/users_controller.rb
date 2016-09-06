@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+   before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
+    
+  
   def show 
    @user = User.find(params[:id])
   end
@@ -32,5 +36,12 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password,
                                 :password_confirmation,:prof)
+  end
+    def authenticate_user!
+      unless logged_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to root_url
+    end
   end
 end
