@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   post   'login' , to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   
-  get   'edit' , to: 'users#edit'
-  patch 'edit' , to: 'users#update'
-  put   'edit' , to: 'users#update'
+  #get   'edit' , to: 'users#edit'
+  #patch 'edit' , to: 'users#update'
+  #put   'edit' , to: 'users#update'
   resources :users
+  resources :microposts
 end

@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-   before_action :authenticate_user!, only: [:edit, :update, :destroy]
-
+  before_action :correct_user, only: [:edit, :update]
     
   
   def show 
    @user = User.find(params[:id])
+   @microposts = @user.microposts.order(created_at: :desc)
   end
   def new
     @user = User.new
@@ -25,11 +25,18 @@ class UsersController < ApplicationController
   end
   
    def update
-	     @user = current_user
-	     @user.update(user_params)
-       redirect_to user_url(@user)
-    end
-      
+     
+      if @user.update(user_params)
+      # 保存に成功した場合はトップページへリダイレクト
+      redirect_to user_url(@user) , notice: 'メッセージを編集しました'
+      else
+      # 保存に失敗した場合は編集画面へ
+      render 'edit'
+      end
+  end
+    
+    
+
       
   private
   
@@ -37,11 +44,12 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password,
                                 :password_confirmation,:prof)
   end
-    def authenticate_user!
-      unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to root_url
+ def correct_user
+
+    @user = User.find(params[:id])
+
+    if current_user != @user
+        redirect_to root_url
     end
   end
 end
