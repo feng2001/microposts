@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   #put   'edit' , to: 'users#update'
   resources :users
   resources :microposts
+  resources :relationships, only: [:create, :destroy]
 end
