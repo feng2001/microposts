@@ -10,7 +10,15 @@ Rails.application.routes.draw do
   #get   'edit' , to: 'users#edit'
   #patch 'edit' , to: 'users#update'
   #put   'edit' , to: 'users#update'
-  resources :users
+  
+  resources :users do
+    member do
+      get 'followings'
+      get 'followers'
+    end
+  end
+  
   resources :microposts
   resources :relationships, only: [:create, :destroy]
+
 end
